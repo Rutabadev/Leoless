@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Covoit" transaction-type="RESOURCE_LOCAL">
+		<class>model.User</class>
+		<class>model.ParamTrajet</class>
+		<class>model.UserTrajet</class>
+		<class>model.Trajet</class>
+		
+		<properties>
+			<!--<property name="eclipseLink.jdbc.batch-writing" value="JDBC"/>-->
+  			<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persitence.jdbc.url" value="jdbc:mysql://192.168.9.209:3306/covoit"/>
+			<property name="javax.persitence.jdbc.user" value="tangoulou"/>
+			<property name="javax.persitence.jdbc.password" value="123"/>
+		</properties>
+	</persistence-unit>
+</persistence>
