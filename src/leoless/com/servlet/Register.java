@@ -106,7 +106,7 @@ public class Register extends HttpServlet {
 			User user = new User();
 			user.setEmail(request.getParameter(FIELD_EMAIL));
 			user.setDateNaissance(new Date(9999999));
-			user.setFumeur((byte) 0);
+			user.setFumeur((boolean) false);
 			user.setNom(FIELD_NOM);
 			user.setPassword(FIELD_PWD1);
 			user.setPrenom(FIELD_PRENOM);
