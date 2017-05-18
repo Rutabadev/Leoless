@@ -32,7 +32,9 @@
             <label>Pr�nom</label>
             <input type="text" name="prenom" id="login" placeholder="Entrez un Pr�nom" required>
             <label>Email</label>
-            <input type="text" name="mail" id="input_pseudo" placeholder="Entrez un Email" required>
+            <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
+            <label>Date de naissance</label>
+            <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
             <label>Mot de passe</label>
             <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
             <label>V�rifiez Mot de passe</label>
@@ -43,9 +45,10 @@
             <input type="reset" id="reset_button">
     </form>
 
-        <img id="photofond" src="images/fondblack.jpg" onmouseover="this.src='images/fond.jpg'" onmouseout="this.src='images/fondblack.jpg'" />
-
+        <img id="photofond" src="images/fondblack.jpg"/>
+        
 	<script src='accueil.js'></script>
-
+	<script src='annexe.js'></script>
+	
 </body>
 </html>
