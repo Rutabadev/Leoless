@@ -37,7 +37,8 @@
             <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
             <label>Vérifiez Mot de passe</label>
             <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
-
+			<input type="radio" name="smoke" value="fumeur"> Male<br>
+  			<input type="radio" name="smoke" value="non fumeur"> Female<br>
             <input type="submit" id="submit_button" value="S'inscrire">
             <input type="reset" id="reset_button">
     </form>

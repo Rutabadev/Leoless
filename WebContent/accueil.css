@@ -48,17 +48,23 @@ label.titres
     color: white;
 }
 form{
-	display: none;
 	border-radius: 10px;
+	display: block;
+	overflow: hidden;
 	background-color: white;
 	position: absolute;
-	padding: 10px;
+	height: 0px;
 	width: 60%;
 	left: 20%;
 	top: 20%;
+	transition: height 1s ease;
+}
+form.open{
+	padding: 10px;
 }
 input[type=text],
 input[type=password] {
+	position: relative;
     width: 100%;
     padding: 10px 18px;
     margin: 8px 0;
@@ -66,8 +72,8 @@ input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
 input[type=submit] {
+	position: relative;
     background-color: #4CAF50;
     display: inline-block;
     color: white;
@@ -78,6 +84,7 @@ input[type=submit] {
     width: 100%;
 }
 input[type=reset] {
+	position: relative;
     background-color: #f44336;
     display: inline-block;
     color: white;
