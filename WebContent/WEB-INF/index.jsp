@@ -45,26 +45,26 @@
 
 <form id='form_signup' method="">
 			<h2>Inscription</h2>
-            <label>Nom</label>
+            <label>Nom</label><span id='errorNom' class='errorMsg'></span>
             <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
-            <label>Prénom</label>
+            <label>Prénom</label><span id='errorPrenom' class='errorMsg'></span>
             <input type="text" id="prenom" name='prenom' placeholder="Entrez un Prénom" required>
-            <label>Email</label>
+            <label>Email</label><span id='errorEmail' class='errorMsg'></span>
             <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
-            <label>Date de naissance</label>
+            <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
             <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
-            <label>Mot de passe</label>
+            <label>Mot de passe</label><span id='errorPwd1' class='errorMsg'></span>
             <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
-            <label>Vérifiez Mot de passe</label>
+            <label>Vérifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
             <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
-			<input type="radio" name="smoke" value="fumeur"> fumeur
-  			<input type="radio" name="smoke" value="non_fumeur"> non fumeur
+			<input type="radio" name="smoke" value="fumeur" required> fumeur
+  			<input type="radio" name="smoke" value="non_fumeur" required> non fumeur
             <input type="submit" id="submit_button" value="S'inscrire">
             <input type="reset" id="reset_button">
     </form>
 
         <img id="photofond" src="images/fondblack.jpg"/>
-        
+
 	<script src='accueil.js'></script>
 	<script src='annexe.js'></script>
 	
