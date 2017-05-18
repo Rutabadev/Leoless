@@ -25,18 +25,18 @@
         <input type="submit" id="submit_button" value="Se connecter">
 </form>
 
-<form id='form_signup' method="">
+<form id='form_signup' method="POST" action="Register">
 			<h2>Inscription</h2>
             <label>Nom</label>
-            <input type="text" id="login" placeholder="Entrez un NOM" required>
-            <label>Prénom</label>
-            <input type="text" id="login" placeholder="Entrez un Prénom" required>
+            <input type="text" name="nom" id="login" placeholder="Entrez un NOM" required>
+            <label>Prï¿½nom</label>
+            <input type="text" name="prenom" id="login" placeholder="Entrez un Prï¿½nom" required>
             <label>Email</label>
-            <input type="text" id="input_pseudo" placeholder="Entrez un Email" required>
+            <input type="text" name="mail" id="input_pseudo" placeholder="Entrez un Email" required>
             <label>Mot de passe</label>
-            <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
-            <label>Vérifiez Mot de passe</label>
-            <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
+            <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
+            <label>Vï¿½rifiez Mot de passe</label>
+            <input type="password" id="pwd2" placeholder="Vï¿½rifiez le Mot de passe" required>
 			<input type="radio" name="smoke" value="fumeur"> Male<br>
   			<input type="radio" name="smoke" value="non fumeur"> Female<br>
             <input type="submit" id="submit_button" value="S'inscrire">
