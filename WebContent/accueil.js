@@ -1,5 +1,4 @@
-var profil = document.getElementById('profil'),
-signup = document.getElementById('signup'),
+var signup = document.getElementById('signup'),
 trajet = document.getElementById('profil'),
 signin = document.getElementById('signin'),
 form_signup = document.getElementById('form_signup'),
@@ -16,6 +15,8 @@ function highlight(){
 function downlight(){
 	background.src = 'images/fondblack.jpg';
 }
+
+
 
 signin.addEventListener('click', function(){
 	setTimeout(function(){form_signin.style.height = '250px';

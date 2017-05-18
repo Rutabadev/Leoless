@@ -11,13 +11,31 @@
     <section id="barreMenu">
         <img src="images/tumontes.png" id="logoHaut">
         <label id="profil" class='titres'>PROFIL</label>
-        <label id="signup" class='titres'>CREER UN COMPTE</label>
+        <label id="signup" class='titres'>CRÉER UN COMPTE</label>
         <label id="trajet" class='titres'>TRAJET</label>
         <label id="signin" class='titres'>S'IDENTIFIER</label>
     </section>
 
+<form id='form_profil' method="">
+			<h2>PROFIL</h2>
+            <label>Nom</label>
+            <input type="text" id="nom" name='nom' >
+            <label>Prénom</label>
+            <input type="text" id="prenom" name='prenom' >
+            <label>Email</label>
+            <input type="text" id="mail" name='mail' >
+            <label>Date de naissance</label>
+            <input type='date' id="birth" name='birth' >
+            <label>Mot de passe</label>
+            <input type="password" id="pwd1" >
+			<input type="radio" name="smoke" value="fumeur"> fumeur
+  			<input type="radio" name="smoke" value="non_fumeur"> non fumeur
+            <input type="submit" id="submit_button" value="Valider">
+
+</form>
+
 <form id='form_signin' method="">
-        <h2>Connexion</h2>
+        <h2>CONNEXION</h2>
         <label>EMAIL</label><label class='errorMsg' id='errorLogin'></label>
         <input type="text" id="login" placeholder="Entrez votre Email" required>
         <label>Mot de passe</label><label class='errorMsg' id='errorMdp1'></label>
@@ -26,7 +44,7 @@
 </form>
 
 <form id='form_signup' method="">
-			<h2>Inscription</h2>
+			<h2>INSCRIPTION</h2>
             <label>Nom</label>
             <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
             <label>Prénom</label>
