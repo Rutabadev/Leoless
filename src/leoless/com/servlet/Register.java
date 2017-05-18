@@ -69,66 +69,16 @@ public class Register extends HttpServlet {
 			throws ServletException, IOException {
 
 		User newUser = null;
-
-//		errors = new HashMap<String, String>();
-//		form = new HashMap<String, String>();
-
-//		String email = request.getParameter(FIELD_EMAIL);
-//		String pwd = request.getParameter(FIELD_PWD1);
-//		String nom = request.getParameter(FIELD_NOM);
-
-//		String errMsg = validateEmail(email);
-//
-//		if (errMsg != null) {
-//			errors.put(FIELD_EMAIL, errMsg);
-//			actionMessage = "Echec de l'inscription";
-//			request.setAttribute("errorStatus", false);
-//		} else {
-//			form.put(FIELD_EMAIL, email);
-//			actionMessage = "Succ�s de l'inscription";
-//			// TODO newUser = new User(nom, email, pwd);
-//			request.setAttribute("errorStatus", true);
-//		}
-//
-//		request.setAttribute("form", form);
-//		request.setAttribute("erreurs", errors);
-//		request.setAttribute("actionMessage", actionMessage);
-//		request.setAttribute("newUser", newUser);
-//
-//		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);
-//
-//		System.out.println(request.getParameter(FIELD_EMAIL));
-//		System.out.println(request.getParameter(FIELD_NOM));
-//		System.out.println(request.getParameter(FIELD_PWD1));
-//		System.out.println(request.getParameter(FIELD_PRENOM));
-//		System.out.println(new Date(9999999));
-//		System.out.println((byte) 0);
-		
-		System.out.println("Salut");
-		
-		String date = request.getParameter(FIELD_DATE);
-		
+	
 		boolean fumeur = Boolean.parseBoolean(request.getParameter(FIELD_FUMEUR));
-		
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				
-		java.util.Date parsed = null;
-		Date sqlDate = null;
-		try {
-			parsed = formatter.parse(date);
-			sqlDate = new Date(parsed.getTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+			
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
 		User user = new User();
 		user.setEmail(request.getParameter(FIELD_EMAIL));
-		user.setDateNaissance(sqlDate);
+		user.setDateNaissance(request.getParameter(FIELD_DATE));
 		user.setFumeur(fumeur);
 		user.setNom(request.getParameter(FIELD_NOM));
 		user.setPassword(request.getParameter(FIELD_PWD1));
@@ -139,12 +89,6 @@ public class Register extends HttpServlet {
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
-		
-//		try {
-//			
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
 	}
 
 	private String validateEmail(String email) {
