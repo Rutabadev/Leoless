@@ -1,9 +1,16 @@
 package leoless.com.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +35,8 @@ public class Login extends HttpServlet {
 	public static Map<String, String> form;
 	public static Map<String, String> errors;
 	public static String actionMessage;
+	
+	private static Query qUser;
 	
        
     /**
@@ -59,7 +68,6 @@ public class Login extends HttpServlet {
 		
 		String email = request.getParameter(FIELD_MAIL);
 		String pwd = request.getParameter(FIELD_PWD);
-
 		
 		String errMsg = validateEmail(email);
 		
@@ -74,16 +82,25 @@ public class Login extends HttpServlet {
 			//TODO newUser = new User(nom, email, pwd);
 			request.setAttribute("errorStatus", true);
 		}
-				
-		request.setAttribute("form", form);
-		request.setAttribute("erreurs", errors);
-		request.setAttribute("actionMessage", actionMessage);
-		request.setAttribute("newUser", newUser);
 		
-		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);
-		
-		
-		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Covoit");
+		EntityManager em = emf.createEntityManager();
+		qUser = em
+				.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pwd");
+		qUser.setParameter("email", email);
+		qUser.setParameter("pwd", pwd);
+		PrintWriter out=response.getWriter();
+		boolean valide = true;
+		try {
+			User u = (User) qUser.getSingleResult();
+		} catch (NoResultException e) {						
+			valide = false;
+		}
+		if (valide) {
+			out.println("Login validé");
+		} else {
+			out.println("Login non autorisé !");
+		}			
 	}
 	
 	private String validateEmail(String email) {

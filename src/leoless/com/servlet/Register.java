@@ -79,7 +79,7 @@ public class Register extends HttpServlet {
 			request.setAttribute("errorStatus", false);
 		} else {
 			form.put(FIELD_EMAIL, email);
-			actionMessage = "Succès de l'inscription";
+			actionMessage = "Succï¿½s de l'inscription";
 			// TODO newUser = new User(nom, email, pwd);
 			request.setAttribute("errorStatus", true);
 		}
@@ -106,7 +106,7 @@ public class Register extends HttpServlet {
 			User user = new User();
 			user.setEmail(request.getParameter(FIELD_EMAIL));
 			user.setDateNaissance(new Date(9999999));
-			user.setFumeur((boolean) false);
+			user.setFumeur(false);
 			user.setNom(FIELD_NOM);
 			user.setPassword(FIELD_PWD1);
 			user.setPrenom(FIELD_PRENOM);
