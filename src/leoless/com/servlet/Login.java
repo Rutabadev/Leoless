@@ -1,8 +1,6 @@
 package leoless.com.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -10,12 +8,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.User;
 
@@ -27,7 +25,7 @@ import model.User;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public static String VIEW_PAGES_URL = "/WEB-INF/login.html";
+	public static String VIEW_PAGES_URL = "/WEB-INF/index.jsp";
 	
 	public static final String FIELD_MAIL = "mail";
 	public static final String FIELD_PWD = "pwd";
@@ -37,6 +35,8 @@ public class Login extends HttpServlet {
 	public static String actionMessage;
 	
 	private static Query qUser;
+	
+	String loginInfo;
 	
        
     /**
@@ -59,48 +59,28 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		User newUser = null;
-		
-		errors = new HashMap<String, String>();
-		form = new HashMap<String, String>();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
 		String email = request.getParameter(FIELD_MAIL);
-		String pwd = request.getParameter(FIELD_PWD);
-		
-		String errMsg = validateEmail(email);
-		
-		if (errMsg != null) {
-			errors.put(FIELD_MAIL, errMsg);
-			actionMessage = "Echec de l'inscription";
-			request.setAttribute("errorStatus", false);
-		}
-		else {
-			form.put(FIELD_MAIL, email);
-			actionMessage = "Succès de l'inscription";
-			//TODO newUser = new User(nom, email, pwd);
-			request.setAttribute("errorStatus", true);
-		}
+		String pwd = request.getParameter(FIELD_PWD);				
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Covoit");
 		EntityManager em = emf.createEntityManager();
-		qUser = em
-				.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pwd");
+		qUser = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pwd");
 		qUser.setParameter("email", email);
 		qUser.setParameter("pwd", pwd);
-		PrintWriter out=response.getWriter();
 		boolean valide = true;
 		try {
 			User u = (User) qUser.getSingleResult();
 		} catch (NoResultException e) {						
 			valide = false;
 		}
-		if (valide) {
-			out.println("Login validé");
+		if (valide) {			
+			request.getSession().setAttribute( "user", email);
+			response.sendRedirect("Acceuil");			
 		} else {
-			out.println("Login non autorisé !");
-		}			
+			response.sendRedirect("Login");;
+		}		
 	}
 	
 	private String validateEmail(String email) {
