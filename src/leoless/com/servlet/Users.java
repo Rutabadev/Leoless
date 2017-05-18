@@ -42,26 +42,16 @@ public class Users extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String latitude = request.getParameter("latitude");
-		String longitude = request.getParameter("longitude");
-		PrintWriter out = response.getWriter();
-        List<User> arr_user = (List<User>)em.createQuery("SELECT user FROM User user")
-                              .getResultList(); 
-        out.println("Nombre d'utilisateur : "+arr_user.size());
-        /*Iterator<User> i = arr_user.iterator();
-        User user;
-        while (i.hasNext()) {
-        	user = (User) i.next();
-            out.println(user.getId()+"<br/>");
-            out.println(user.getNom()+"<br/>");
-            out.println(user.getPrenom()+"<br/>");
-            out.println("----------------" + "<br/>");
-        }*/
-		//Query selectAllUsers = em.createQuery("SELECT user FROM User user");
-		//response.getWriter().append(""+selectAllUsers.getResultList().size());
-		//em.close();
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(request.getParameter("latitude") != null && request.getParameter("longitude") != null) {
+			int latitude = (int) Double.parseDouble(request.getParameter("latitude"));
+			int longitude = (int) Double.parseDouble(request.getParameter("longitude"));
+	        List<User> arr_user = (List<User>)em.createQuery("SELECT user FROM User user WHERE user.id IN (SELECT userTrajet.idUser FROM UserTrajet userTrajet,Trajet trajet WHERE trajet.longDepart like '"+longitude+"%' AND trajet.latDepart like '"+latitude+"%' AND userTrajet.idTrajet = trajet.id)")
+	                              .getResultList();
+	        request.setAttribute("usersProcheText", arr_user.size() + " utilisateur(s) proche(s) de vous !");
+	        //request.setAttribute("usersProcheText", ""+latitude+" "+longitude);
+		} else {
+			request.setAttribute("usersProcheText", "Localisation introuvable, recherche des utilisateurs proches impossible");
+		}
 	}
 
 	/**
