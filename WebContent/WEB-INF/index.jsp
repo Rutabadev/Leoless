@@ -28,24 +28,27 @@
 <form id='form_signup' method="">
 			<h2>Inscription</h2>
             <label>Nom</label>
-            <input type="text" id="login" placeholder="Entrez un NOM" required>
+            <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
             <label>Prénom</label>
-            <input type="text" id="login" placeholder="Entrez un Prénom" required>
+            <input type="text" id="prenom" name='prenom' placeholder="Entrez un Prénom" required>
             <label>Email</label>
-            <input type="text" id="input_pseudo" placeholder="Entrez un Email" required>
+            <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
+            <label>Date de naissance</label>
+            <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
             <label>Mot de passe</label>
             <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
             <label>Vérifiez Mot de passe</label>
             <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
-			<input type="radio" name="smoke" value="fumeur"> Male<br>
-  			<input type="radio" name="smoke" value="non fumeur"> Female<br>
+			<input type="radio" name="smoke" value="fumeur"> fumeur
+  			<input type="radio" name="smoke" value="non_fumeur"> non fumeur
             <input type="submit" id="submit_button" value="S'inscrire">
             <input type="reset" id="reset_button">
     </form>
 
-        <img id="photofond" src="images/fondblack.jpg" onmouseover="this.src='images/fond.jpg'" onmouseout="this.src='images/fondblack.jpg'" />
-
+        <img id="photofond" src="images/fondblack.jpg"/>
+        
 	<script src='accueil.js'></script>
-
+	<script src='annexe.js'></script>
+	
 </body>
 </html>
