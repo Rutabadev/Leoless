@@ -2,6 +2,9 @@ package leoless.com.servlet;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +34,9 @@ public class Register extends HttpServlet {
 	public static final String FIELD_NOM = "nom";
 	public static final String FIELD_PRENOM = "prenom";
 	public static final String FIELD_DATE = "date";
+	public static final String FIELD_FUMEUR = "fumeur";
+	
+	private static final String PERSISTENCE_UNIT_NAME = "Covoit";
 
 	public static Map<String, String> form;
 	public static Map<String, String> errors;
@@ -64,59 +70,81 @@ public class Register extends HttpServlet {
 
 		User newUser = null;
 
-		errors = new HashMap<String, String>();
-		form = new HashMap<String, String>();
+//		errors = new HashMap<String, String>();
+//		form = new HashMap<String, String>();
 
-		String email = request.getParameter(FIELD_EMAIL);
-		String pwd = request.getParameter(FIELD_PWD1);
-		String nom = request.getParameter(FIELD_NOM);
+//		String email = request.getParameter(FIELD_EMAIL);
+//		String pwd = request.getParameter(FIELD_PWD1);
+//		String nom = request.getParameter(FIELD_NOM);
 
-		String errMsg = validateEmail(email);
-
-		if (errMsg != null) {
-			errors.put(FIELD_EMAIL, errMsg);
-			actionMessage = "Echec de l'inscription";
-			request.setAttribute("errorStatus", false);
-		} else {
-			form.put(FIELD_EMAIL, email);
-			actionMessage = "Succès de l'inscription";
-			// TODO newUser = new User(nom, email, pwd);
-			request.setAttribute("errorStatus", true);
-		}
-
-		request.setAttribute("form", form);
-		request.setAttribute("erreurs", errors);
-		request.setAttribute("actionMessage", actionMessage);
-		request.setAttribute("newUser", newUser);
-
-		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);
-
-		System.out.println(request.getParameter(FIELD_EMAIL));
-		System.out.println(request.getParameter(FIELD_NOM));
-		System.out.println(request.getParameter(FIELD_PWD1));
-		System.out.println(request.getParameter(FIELD_PRENOM));
-		System.out.println(new Date(9999999));
-		System.out.println((byte) 0);
-
+//		String errMsg = validateEmail(email);
+//
+//		if (errMsg != null) {
+//			errors.put(FIELD_EMAIL, errMsg);
+//			actionMessage = "Echec de l'inscription";
+//			request.setAttribute("errorStatus", false);
+//		} else {
+//			form.put(FIELD_EMAIL, email);
+//			actionMessage = "Succès de l'inscription";
+//			// TODO newUser = new User(nom, email, pwd);
+//			request.setAttribute("errorStatus", true);
+//		}
+//
+//		request.setAttribute("form", form);
+//		request.setAttribute("erreurs", errors);
+//		request.setAttribute("actionMessage", actionMessage);
+//		request.setAttribute("newUser", newUser);
+//
+//		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);
+//
+//		System.out.println(request.getParameter(FIELD_EMAIL));
+//		System.out.println(request.getParameter(FIELD_NOM));
+//		System.out.println(request.getParameter(FIELD_PWD1));
+//		System.out.println(request.getParameter(FIELD_PRENOM));
+//		System.out.println(new Date(9999999));
+//		System.out.println((byte) 0);
+		
+		String date = request.getParameter(FIELD_DATE);
+		
+		String fumeur = request.getParameter(FIELD_FUMEUR);
+		
+		int fumeurParse = Integer.parseInt(fumeur);
+		
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				
+		java.util.Date parsed = null;
+		Date sqlDate = null;
 		try {
-			EntityManagerFactory emf = Persistence
-					.createEntityManagerFactory("Covoit");
-			EntityManager em = emf.createEntityManager();
-			em.getTransaction().begin();
-			User user = new User();
-			user.setEmail(request.getParameter(FIELD_EMAIL));
-			user.setDateNaissance(new Date(9999999));
-			user.setFumeur((byte) 0);
-			user.setNom(FIELD_NOM);
-			user.setPassword(FIELD_PWD1);
-			user.setPrenom(FIELD_PRENOM);
-			em.persist(user);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			parsed = formatter.parse(date);
+			sqlDate = new Date(parsed.getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		User user = new User();
+		user.setEmail(request.getParameter(FIELD_EMAIL));
+		user.setDateNaissance(sqlDate);
+		user.setFumeur((byte) fumeurParse);
+		user.setNom(request.getParameter(FIELD_NOM));
+		user.setPassword(request.getParameter(FIELD_PWD1));
+		user.setPrenom(request.getParameter(FIELD_PRENOM));
+		
+		em.persist(user);
+		
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		
+//		try {
+//			
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
 	}
 
 	private String validateEmail(String email) {
