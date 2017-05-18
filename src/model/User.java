@@ -23,7 +23,7 @@ public class User implements Serializable {
 
 	private String email;
 
-	private byte fumeur;
+	private boolean fumeur;
 
 	private String nom;
 
@@ -58,11 +58,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public byte getFumeur() {
+	public boolean getFumeur() {
 		return this.fumeur;
 	}
 
-	public void setFumeur(byte fumeur) {
+	public void setFumeur(boolean fumeur) {
 		this.fumeur = fumeur;
 	}
 
