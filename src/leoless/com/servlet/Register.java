@@ -33,8 +33,8 @@ public class Register extends HttpServlet {
 	public static final String FIELD_PWD2 = "pwd2";
 	public static final String FIELD_NOM = "nom";
 	public static final String FIELD_PRENOM = "prenom";
-	public static final String FIELD_DATE = "date";
-	public static final String FIELD_FUMEUR = "fumeur";
+	public static final String FIELD_DATE = "birth";
+	public static final String FIELD_FUMEUR = "smoke";
 	
 	private static final String PERSISTENCE_UNIT_NAME = "Covoit";
 
@@ -104,11 +104,11 @@ public class Register extends HttpServlet {
 //		System.out.println(new Date(9999999));
 //		System.out.println((byte) 0);
 		
+		System.out.println("Salut");
+		
 		String date = request.getParameter(FIELD_DATE);
 		
-		String fumeur = request.getParameter(FIELD_FUMEUR);
-		
-		int fumeurParse = Integer.parseInt(fumeur);
+		boolean fumeur = Boolean.parseBoolean(request.getParameter(FIELD_FUMEUR));
 		
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				
@@ -129,7 +129,7 @@ public class Register extends HttpServlet {
 		User user = new User();
 		user.setEmail(request.getParameter(FIELD_EMAIL));
 		user.setDateNaissance(sqlDate);
-		user.setFumeur(fumeurParse);
+		user.setFumeur(fumeur);
 		user.setNom(request.getParameter(FIELD_NOM));
 		user.setPassword(request.getParameter(FIELD_PWD1));
 		user.setPrenom(request.getParameter(FIELD_PRENOM));

@@ -25,3 +25,7 @@ hs_err_pid*
 .classpath
 .settings/org.eclipse.wst.common.project.facet.core.prefs.xml
 src/META-INF/persistence.xml
+
+build/classes/META-INF/persistence\.xml
+
+src/model/UserTest\.java
