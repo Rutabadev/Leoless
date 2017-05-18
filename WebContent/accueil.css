@@ -21,6 +21,16 @@ h2{
     padding: 0;
     background: black;
 }
+#usersProche
+{
+    position: fixed;
+    z-index: 2;
+	top: 80px;
+	left: 30px;
+	color: white;
+	padding: 10px;
+	background-color: black;
+}
 #logoHaut
 {
     width: 150px;

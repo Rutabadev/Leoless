@@ -15,6 +15,24 @@
         <label id="trajet" class='titres'>TRAJET</label>
         <label id="signin" class='titres'>S'IDENTIFIER</label>
     </section>
+    
+<section id="usersProche"> 
+	<p id="usersProcheText"><%= request.getAttribute("usersProcheText") %></p>
+	<script>
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition);
+	    } else {
+	        document.getElementById("usersProcheText").innerHTML += "<br>Geolocation is not supported by this browser.";
+	    }
+	}
+	function showPosition(position) {
+		if(location.href.indexOf('longitude') == -1)
+	    location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
+	}
+	getLocation();
+	</script>
+</section>
 
 <form id='form_signin' method="">
         <h2>Connexion</h2>
