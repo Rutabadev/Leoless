@@ -7,23 +7,28 @@ form_signin = document.getElementById('form_signin'),
 background = document.getElementById('photofond');
 
 background.addEventListener('mouseover', highlight);
+background.addEventListener('mouseout', downlight);
 
 function highlight(){
 	background.src = 'images/fond.jpg';
 }
 
-signin.addEventListener('click', function(e){
-	form_signin.style.height = '250px';
-	form_signin.classlist.add('open');
+function downlight(){
+	background.src = 'images/fondblack.jpg';
+}
+
+signin.addEventListener('click', function(){
+	setTimeout(function(){form_signin.style.height = '250px';
+	form_signin.classList.add('open');}, 1000);
 	form_signup.style.height = '0px';
-//    login.focus();
-	
-	e.preventDefault();
+	setTimeout(function(){form_signup.classList.remove('open');}, 1000);
+	background.removeEventListener('mouseover', highlight);
 });
 
-signup.addEventListener('click', function(e){
-	form_signup.style.height = '500px';
+signup.addEventListener('click', function(){
+	setTimeout(function(){form_signup.style.height = '575px';
+	form_signup.classList.add('open');}, 1000);
 	form_signin.style.height = '0px';
-	
-	e.preventDefault();
+	setTimeout(function(){form_signin.classList.remove('open');}, 1000);
+	background.removeEventListener('mouseover', highlight);
 });
