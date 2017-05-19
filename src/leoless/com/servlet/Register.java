@@ -101,7 +101,7 @@ public class Register extends HttpServlet {
 //		request.setAttribute("Exist", "Mail existant");
 //		request.getRequestDispatcher("/Acceuil?form=signup").forward(request, response);
 		
-		response.sendRedirect(response.encodeRedirectURL("/Leoless/Acceuil?signup=" + "signup"));
+		response.sendRedirect(response.encodeRedirectURL("/Leoless/Acceuil"));
 
 
 	}

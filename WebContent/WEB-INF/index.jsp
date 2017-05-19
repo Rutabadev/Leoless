@@ -61,7 +61,7 @@
             <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
             <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
             <label>Mot de passe</label><span id='errorPwd1' class='errorMsg'></span>
-            <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
+            <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
             <label>V�rifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
             <input type="password" id="pwd2" placeholder="V�rifiez le Mot de passe" required>
 			<input type="radio" name="smoke" value="fumeur" required> fumeur
