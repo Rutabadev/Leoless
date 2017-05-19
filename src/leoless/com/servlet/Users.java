@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import model.Trajet;
+import model.TrajetShort;
 import model.User;
 
 /**
@@ -47,10 +50,14 @@ public class Users extends HttpServlet {
 			int longitude = (int) Double.parseDouble(request.getParameter("longitude"));
 	        List<User> arr_user = (List<User>)em.createQuery("SELECT user FROM User user WHERE user.id IN (SELECT userTrajet.idUser FROM UserTrajet userTrajet,Trajet trajet WHERE trajet.longDepart like '"+longitude+"%' AND trajet.latDepart like '"+latitude+"%' AND userTrajet.idTrajet = trajet.id)")
 	                              .getResultList();
+	        List<TrajetShort> arr_trajet = (List<TrajetShort>) em.createQuery("select DISTINCT new model.TrajetShort(trajet.latDepart,trajet.longDepart) FROM Trajet trajet WHERE trajet.id IN (SELECT userTrajet.idTrajet as id FROM UserTrajet userTrajet WHERE userTrajet.fonction = 'conducteur')").getResultList();
+	        
 	        request.setAttribute("usersProcheText", arr_user.size() + " utilisateur(s) proche(s) de vous !");
+	        request.setAttribute("usersProcheLatLng", arr_trajet);
 	        //request.setAttribute("usersProcheText", ""+latitude+" "+longitude);
 		} else {
 			request.setAttribute("usersProcheText", "Localisation introuvable, recherche des utilisateurs proches impossible");
+			request.setAttribute("usersProcheLatLng", new ArrayList<Trajet>());
 		}
 	}
 
