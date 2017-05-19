@@ -23,7 +23,7 @@ public class ParamTrajet implements Serializable {
 	@Column(name="age_min")
 	private byte ageMin;
 
-	private byte fumeur;
+	private boolean fumeur;
 
 	@Column(name="id_user")
 	private int idUser;
@@ -55,11 +55,11 @@ public class ParamTrajet implements Serializable {
 		this.ageMin = ageMin;
 	}
 
-	public byte getFumeur() {
+	public boolean getFumeur() {
 		return this.fumeur;
 	}
 
-	public void setFumeur(byte fumeur) {
+	public void setFumeur(boolean fumeur) {
 		this.fumeur = fumeur;
 	}
 

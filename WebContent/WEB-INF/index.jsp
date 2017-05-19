@@ -19,7 +19,7 @@
 <section id="usersProche"> 
 	<p id="usersProcheText"><%= request.getAttribute("usersProcheText") %></p>
 	<script>
-	function getLocation() {
+ 	function getLocation() {
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(showPosition);
 	    } else {
@@ -27,8 +27,15 @@
 	    }
 	}
 	function showPosition(position) {
-		if(location.href.indexOf('longitude') == -1)
-	    location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
+		alert(location.href.indexOf('signup'));
+		if(location.href.indexOf('longitude') == -1) {
+			if (location.href.indexOf('signup') != -1) {
+				location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
+			}
+			else {
+	    		location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude + "&signup=signup";
+			}
+		}
 	}
 	getLocation();
 	</script>
@@ -43,20 +50,20 @@
         <input type="submit" id="submit_button" value="Se connecter">
 </form>
 
-<form id='form_signup' method="">
+<form id='form_signup' method="POST" action="Register">
 			<h2>Inscription</h2>
             <label>Nom</label><span id='errorNom' class='errorMsg'></span>
             <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
-            <label>Prénom</label><span id='errorPrenom' class='errorMsg'></span>
-            <input type="text" id="prenom" name='prenom' placeholder="Entrez un Prénom" required>
+            <label>Prï¿½nom</label><span id='errorPrenom' class='errorMsg'></span>
+            <input type="text" id="prenom" name='prenom' placeholder="Entrez un Prï¿½nom" required>
             <label>Email</label><span id='errorEmail' class='errorMsg'></span>
             <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
             <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
             <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
             <label>Mot de passe</label><span id='errorPwd1' class='errorMsg'></span>
-            <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
-            <label>Vérifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
-            <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
+            <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
+            <label>Vï¿½rifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
+            <input type="password" id="pwd2" placeholder="Vï¿½rifiez le Mot de passe" required>
 			<input type="radio" name="smoke" value="fumeur" required> fumeur
   			<input type="radio" name="smoke" value="non_fumeur" required> non fumeur
             <input type="submit" id="submit_button" value="S'inscrire">

@@ -2,12 +2,16 @@ package leoless.com.servlet;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,14 +27,17 @@ import model.User;
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public static String VIEW_PAGES_URL = "/WEB-INF/register.html";
+	public static String VIEW_PAGES_URL = "/WEB-INF/index.jsp";
 
 	public static final String FIELD_EMAIL = "mail";
 	public static final String FIELD_PWD1 = "pwd1";
 	public static final String FIELD_PWD2 = "pwd2";
 	public static final String FIELD_NOM = "nom";
 	public static final String FIELD_PRENOM = "prenom";
-	public static final String FIELD_DATE = "date";
+	public static final String FIELD_DATE = "birth";
+	public static final String FIELD_FUMEUR = "smoke";
+
+	private static final String PERSISTENCE_UNIT_NAME = "Covoit";
 
 	public static Map<String, String> form;
 	public static Map<String, String> errors;
@@ -62,61 +69,41 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User newUser = null;
+		boolean fumeur = Boolean.parseBoolean(request.getParameter(FIELD_FUMEUR));
 
-		errors = new HashMap<String, String>();
-		form = new HashMap<String, String>();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		EntityManager em = emf.createEntityManager();
+		
+		String mail = request.getParameter(FIELD_EMAIL);
 
-		String email = request.getParameter(FIELD_EMAIL);
-		String pwd = request.getParameter(FIELD_PWD1);
-		String nom = request.getParameter(FIELD_NOM);
-
-		String errMsg = validateEmail(email);
-
-		if (errMsg != null) {
-			errors.put(FIELD_EMAIL, errMsg);
-			actionMessage = "Echec de l'inscription";
-			request.setAttribute("errorStatus", false);
-		} else {
-			form.put(FIELD_EMAIL, email);
-			actionMessage = "Succ�s de l'inscription";
-			// TODO newUser = new User(nom, email, pwd);
-			request.setAttribute("errorStatus", true);
-		}
-
-		request.setAttribute("form", form);
-		request.setAttribute("erreurs", errors);
-		request.setAttribute("actionMessage", actionMessage);
-		request.setAttribute("newUser", newUser);
-
-		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);
-
-		System.out.println(request.getParameter(FIELD_EMAIL));
-		System.out.println(request.getParameter(FIELD_NOM));
-		System.out.println(request.getParameter(FIELD_PWD1));
-		System.out.println(request.getParameter(FIELD_PRENOM));
-		System.out.println(new Date(9999999));
-		System.out.println((byte) 0);
-
-		try {
-			EntityManagerFactory emf = Persistence
-					.createEntityManagerFactory("Covoit");
-			EntityManager em = emf.createEntityManager();
+		Query findUser = em.createQuery("SELECT u FROM User u WHERE u.email = :mail");
+		findUser.setParameter("mail", mail);
+	
+		if (findUser.getResultList().size() == 0) {
 			em.getTransaction().begin();
+
 			User user = new User();
 			user.setEmail(request.getParameter(FIELD_EMAIL));
-			user.setDateNaissance(new Date(9999999));
-			user.setFumeur(false);
-			user.setNom(FIELD_NOM);
-			user.setPassword(FIELD_PWD1);
-			user.setPrenom(FIELD_PRENOM);
+			user.setDateNaissance(request.getParameter(FIELD_DATE));
+			user.setFumeur(fumeur);
+			user.setNom(request.getParameter(FIELD_NOM));
+			user.setPassword(request.getParameter(FIELD_PWD1));
+			user.setPrenom(request.getParameter(FIELD_PRENOM));
+
 			em.persist(user);
+
 			em.getTransaction().commit();
-			em.close();
-			emf.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
+
+		em.close();
+		emf.close();
+
+//		request.setAttribute("Exist", "Mail existant");
+//		request.getRequestDispatcher("/Acceuil?form=signup").forward(request, response);
+		
+		response.sendRedirect(response.encodeRedirectURL("/Leoless/Acceuil"));
+
+
 	}
 
 	private String validateEmail(String email) {

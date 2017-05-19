@@ -17,9 +17,9 @@ public class User implements Serializable {
 	@Id
 	private int id;
 
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	@Column(name="date_naissance")
-	private Date dateNaissance;
+	private String dateNaissance;
 
 	private String email;
 
@@ -42,12 +42,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDateNaissance() {
+	public String getDateNaissance() {
 		return this.dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
+	public void setDateNaissance(String string) {
+		this.dateNaissance = string;
 	}
 
 	public String getEmail() {
