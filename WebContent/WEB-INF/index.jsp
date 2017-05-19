@@ -29,7 +29,7 @@
 	<script>
 	var tabLatLong = [];
 	<c:forEach items="${usersProcheLatLng}" var="element">
-		tabLatLong.push([${element.latDepart},${element.latDepart}]);
+	tabLatLong.push([${element.latDepart},${element.longDepart}]);
 	</c:forEach>
 	function getLocation() {
 	    if (navigator.geolocation) {
@@ -57,6 +57,14 @@
        	    title: 'Vous',
        	    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFFFFF'
        	  });
+          for (var i = 0; i < tabLatLong.length; i++) {
+       	  	var marker = new google.maps.Marker({
+            	    position: {lat: tabLatLong[0], lng: tabLatLong[1])},
+            	    map: map,
+            	    title: 'Eux',
+            	    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|000000'
+            	  });
+          }
       }
     }
     function getParameterByName(name, url) {
