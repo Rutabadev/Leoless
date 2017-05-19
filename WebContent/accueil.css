@@ -75,6 +75,7 @@ form.open{
 	padding: 10px;
 }
 input[type=text],
+input[type=email],
 input[type=password],
 input[type=date] {
 	position: relative;
