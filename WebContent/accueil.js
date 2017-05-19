@@ -148,6 +148,13 @@ function obtenirParametre(sVar) {
 			+ "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
+document.getElementById('logoHaut').addEventListener('mouseenter', function(){
+	document.getElementById('logoHaut').src = 'images/tumonteshover.png';
+});
+document.getElementById('logoHaut').addEventListener('mouseleave', function(){
+	document.getElementById('logoHaut').src = 'images/tumontes.png';
+});
+
 if (obtenirParametre("signup") == "signup") {
 	setTimeout(function() {
 		form_signup.style.height = '575px';
