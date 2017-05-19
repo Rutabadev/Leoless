@@ -122,7 +122,7 @@ function setInvalid(element) {
 
 signin.addEventListener('click', function(){
 	setTimeout(function(){form_signin.style.height = '250px';
-	form_signin.classList.add('open');}, 1000);
+	form_signin.classList.add('open');}, 300);
 	form_signup.style.height = '0px';
 	setTimeout(function() {
 		form_signup.classList.remove('open');
@@ -134,7 +134,7 @@ signup.addEventListener('click', function() {
 	setTimeout(function() {
 		form_signup.style.height = '575px';
 		form_signup.classList.add('open');
-	}, 1000);
+	}, 300);
 	form_signin.style.height = '0px';
 	setTimeout(function() {
 		form_signin.classList.remove('open');
@@ -152,10 +152,10 @@ if (obtenirParametre("signup") == "signup") {
 	setTimeout(function() {
 		form_signup.style.height = '575px';
 		form_signup.classList.add('open');
-	}, 1000);
+	}, 300);
 	form_signin.style.height = '0px';
 	setTimeout(function() {
 		form_signin.classList.remove('open');
-	}, 1000);
+	}, 300);
 	background.removeEventListener('mouseover', highlight);
 }
