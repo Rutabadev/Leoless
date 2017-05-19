@@ -114,7 +114,10 @@ public class Trajet implements Serializable {
 		for (ParamTrajet p : params) {
 			Query qTrajet= em.createQuery("SELECT t FROM Trajet t WHERE t.idParam = :id");
 			qTrajet.setParameter("id", p.getId());
-			trajets.add((Trajet)qTrajet.getSingleResult());
+			List<Trajet> trajetTemp =(List<Trajet>)qTrajet.getResultList();
+			for(Trajet t : trajetTemp) {
+				trajets.add(t);
+			}
 		}
 		em.close();
 		factory.close();
