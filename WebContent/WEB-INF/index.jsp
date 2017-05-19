@@ -27,9 +27,8 @@
 	    }
 	}
 	function showPosition(position) {
-		alert(location.href.indexOf('signup'));
 		if(location.href.indexOf('longitude') == -1) {
-			if (location.href.indexOf('signup') != -1) {
+			if (location.href.indexOf('signup') == -1) {
 				location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
 			}
 			else {
@@ -41,7 +40,7 @@
 	</script>
 </section>
 
-<form id='form_signin' method="">
+<form id='form_signin' method="POST" action="Login">
         <h2>Connexion</h2>
         <label>EMAIL</label><label class='errorMsg' id='errorLogin'></label>
         <input type="text" id="login" placeholder="Entrez votre Email" required>
