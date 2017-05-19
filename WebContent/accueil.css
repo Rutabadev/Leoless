@@ -117,3 +117,6 @@ input[type=reset] {
 .errorMsg{
 	margin-left: 10px;
 }
+.formAcc {
+	z-index: 999;
+}

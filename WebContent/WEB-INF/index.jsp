@@ -10,13 +10,14 @@
 </head>
 <body>
 <section id="barreMenu">
-        <img src="images/tumontes.png" id="logoHaut">
+        <a href="/Leoless/Acceuil"><img src="images/tumontes.png" id="logoHaut"></a>
         <% if (request.getSession().getAttribute("user") != null) { %>
         	<label id="profil" class='titres'><%= request.getSession().getAttribute("user") %></label>
         <% } %>
         <label id="trajet" class='titres'>TRAJET</label>
         <% if (request.getSession().getAttribute("user") != null) { %>
         	<a href="/Leoless/Logout"><label id="logout" class='titres'>DECONNEXION</label></a>
+        	<a href="/Leoless/Delete"><label id="delete" class="titres">Supprimer mon compte</label></a>
         <% } else { %>
         	<label id="signup" class='titres'>CREER UN COMPTE</label>
         	<label id="signin" class='titres'>S'IDENTIFIER</label>
@@ -82,7 +83,7 @@
     async defer></script>
 </section>
 
-<form id='form_signin' method="POST" action="Login">
+<form id='form_signin' class="formAcc" method="POST" action="Login">
         <h2>Connexion</h2>
         <label>EMAIL</label><label class='errorMsg' id='errorLogin'></label>
         <input type="email" id="login" placeholder="Entrez votre Email" name="mail" required>
@@ -91,7 +92,7 @@
         <input type="submit" id="submit_button" value="Se connecter">        
 </form>
 
-<form id='form_signup' method="POST" action="Register">
+<form id='form_signup' class="formAcc" method="POST" action="Register">
 			<h2>Inscription</h2>
             <label>Nom</label><span id='errorNom' class='errorMsg'></span>
             <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
@@ -102,7 +103,7 @@
             <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
             <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
             <label>Mot de passe</label><span id='errorPwd1' class='errorMsg'></span>
-            <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
+            <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
             <label>Vérifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
             <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
 			<input type="radio" name="smoke" value="fumeur" required> fumeur
