@@ -11,11 +11,16 @@
 <body>
 <section id="barreMenu">
         <img src="images/tumontes.png" id="logoHaut">
-        <label id="profil" class='titres'><%= request.getSession().getAttribute("user") %></label>
-        <label id="signup" class='titres'>CREER UN COMPTE</label>
+        <% if (request.getSession().getAttribute("user") != null) { %>
+        	<label id="profil" class='titres'><%= request.getSession().getAttribute("user") %></label>
+        <% } %>
         <label id="trajet" class='titres'>TRAJET</label>
-        <label id="signin" class='titres'>S'IDENTIFIER</label>
-        <label class='titres'></label>
+        <% if (request.getSession().getAttribute("user") != null) { %>
+        	<a href="/Leoless/Logout"><label id="logout" class='titres'>DECONNEXION</label></a>
+        <% } else { %>
+        	<label id="signup" class='titres'>CREER UN COMPTE</label>
+        	<label id="signin" class='titres'>S'IDENTIFIER</label>
+        <% } %>
     </section>
     
 <section id="usersProche"> 
@@ -35,7 +40,7 @@
 	}
 	function showPosition(position) {
 		if(location.href.indexOf('longitude') == -1) {
-			location.href += (location.href.indexOf('&') == -1 : "?" : "") + "&longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
+			location.href += (location.href.indexOf('?') == -1 ? "?" : "") + "&longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
 		}
 	}
 	var map;

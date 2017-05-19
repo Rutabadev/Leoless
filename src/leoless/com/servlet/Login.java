@@ -75,7 +75,9 @@ public class Login extends HttpServlet {
 			valide = false;
 		}
 		if (valide) {			
-			request.getSession().setAttribute( "user", email);
+			request.getSession().setAttribute("user", email);
+			System.out.println("Ca passe");
+			System.out.println(request.getSession().getAttribute("user"));
 			response.sendRedirect("Acceuil");			
 		} else {
 			response.sendRedirect("Login");;

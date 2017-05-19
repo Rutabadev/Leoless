@@ -49,7 +49,7 @@ public class Acceuil extends HttpServlet {
 		Users usersServlet = new Users();
 		usersServlet.doGet(request, response);
 		HttpSession session = request.getSession();
-		session.setAttribute("user", "PAS ENCORE CONNECTE");
+		//session.setAttribute("user", "PAS ENCORE CONNECTE");
 		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);		
 	}
 
