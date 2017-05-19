@@ -19,9 +19,11 @@
     </section>
     
 <section id="usersProche"> 
-	<p id="usersProcheText"><%= request.getAttribute("usersProcheText") %></p>
+	<p id="usersProcheText"><c:out value="${usersProcheText}"></c:out></p>
+	<div id="map"></div>
 	<script>
- 	function getLocation() {
+	var tabLatLong = [];
+	function getLocation() {
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(showPosition);
 	    } else {
@@ -30,16 +32,38 @@
 	}
 	function showPosition(position) {
 		if(location.href.indexOf('longitude') == -1) {
-			if (location.href.indexOf('signup') == -1) {
-				location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
-			}
-			else {
-	    		location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude + "&signup=signup";
-			}
+			location.href += (location.href.indexOf('&') == -1 : "?" : "") + "&longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
 		}
 	}
+	var map;
+    function initMap() {
+      if(location.href.indexOf('longitude') != -1) {
+          map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: parseFloat(getParameterByName('latitude')), lng: parseFloat(getParameterByName('longitude'))},
+              zoom: 10
+            });
+          document.getElementById('map').classList.add('show');
+          var marker = new google.maps.Marker({
+       	    position: {lat: parseFloat(getParameterByName('latitude')), lng: parseFloat(getParameterByName('longitude'))},
+       	    map: map,
+       	    title: 'Vous',
+       	    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFFFFF'
+       	  });
+      }
+    }
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 	getLocation();
-	</script> -->
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNuqsACDNMEU79YIMaVYslNSsR1TnQAFU&callback=initMap"
+    async defer></script>
 </section>
 
 <form id='form_signin' method="POST" action="Login">
@@ -55,16 +79,16 @@
 			<h2>Inscription</h2>
             <label>Nom</label><span id='errorNom' class='errorMsg'></span>
             <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
-            <label>Pr�nom</label><span id='errorPrenom' class='errorMsg'></span>
+            <label>Prénom</label><span id='errorPrenom' class='errorMsg'></span>
             <input type="text" id="prenom" name='prenom' placeholder="Entrez un Pr�nom" required>
             <label>Email</label><span id='errorEmail' class='errorMsg'></span>
             <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
             <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
             <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
             <label>Mot de passe</label><span id='errorPwd1' class='errorMsg'></span>
-            <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
-            <label>V�rifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
-            <input type="password" id="pwd2" placeholder="V�rifiez le Mot de passe" required>
+            <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
+            <label>Vérifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
+            <input type="password" id="pwd2" placeholder="Vérifiez le Mot de passe" required>
 			<input type="radio" name="smoke" value="fumeur" required> fumeur
   			<input type="radio" name="smoke" value="non_fumeur" required> non fumeur
             <input type="submit" id="submit_button" value="S'inscrire">
