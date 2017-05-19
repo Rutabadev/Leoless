@@ -1,8 +1,6 @@
 package leoless.com.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -10,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +35,8 @@ public class Login extends HttpServlet {
 	
 	private static Query qUser;
 	
+	String loginInfo;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -59,76 +58,28 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		User newUser = null;
-		
-		errors = new HashMap<String, String>();
-		form = new HashMap<String, String>();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
 		String email = request.getParameter(FIELD_MAIL);
-		String pwd = request.getParameter(FIELD_PWD);
-		
-		String errMsg = validateEmail(email);
-		
-		if (errMsg != null) {
-			errors.put(FIELD_MAIL, errMsg);
-			actionMessage = "Echec de l'inscription";
-			request.setAttribute("errorStatus", false);
-		}
-		else {
-			form.put(FIELD_MAIL, email);
-			actionMessage = "Succès de l'inscription";
-			//TODO newUser = new User(nom, email, pwd);
-			request.setAttribute("errorStatus", true);
-		}
+		String pwd = request.getParameter(FIELD_PWD);				
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Covoit");
 		EntityManager em = emf.createEntityManager();
-		qUser = em
-				.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pwd");
+		qUser = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pwd");
 		qUser.setParameter("email", email);
 		qUser.setParameter("pwd", pwd);
-		PrintWriter out=response.getWriter();
 		boolean valide = true;
 		try {
 			User u = (User) qUser.getSingleResult();
 		} catch (NoResultException e) {						
 			valide = false;
 		}
-		if (valide) {
-			out.println("Login validé");
+		if (valide) {			
+			request.getSession().setAttribute( "user", email);
+			response.sendRedirect("Acceuil");			
 		} else {
-			out.println("Login non autorisé !");
-		}			
-	}
-	
-	private String validateEmail(String email) {
-		
-		if (email != null && email.trim().length() != 0) {
-			if (!email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" )) {
-				return "Veuillez saisir une adresse mail valide";
-			}
-		}
-		else {
-			return "L'adresse mail est obligatoire";
-		}
-		
-		return null;
-	}
-	
-	private String validatePwd(String pwd1, String pwd2) {
-		
-		if (pwd1 != null && pwd2 != null && pwd1.length() != 0 && pwd2.length() != 0) {
-			if (!pwd1.equals(pwd2)) {
-				return "Les mots de passe ne correspondent pas";
-			}
-		}
-		else {
-			return "Le mot de passe est obligatoire";
-		}
-		
-		return null;
+			response.sendRedirect("Login");;
+		}		
 	}
 	
 }
