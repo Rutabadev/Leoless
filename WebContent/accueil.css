@@ -107,3 +107,6 @@ input[type=reset] {
     cursor: pointer;
     width: 100%;
 }
+.errorMsg{
+	margin-left: 10px;
+}
