@@ -34,8 +34,10 @@ public class Trajets extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setAttribute("trajets", Trajet.getTrajetByUser());
+		if(request.getParameter("id") != null) {
+			request.setAttribute("trajet", Trajet.getTrajet(Integer.parseInt(request.getParameter("id"))));
+		}
 		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward(request, response);
-
 	}
 
 	/**

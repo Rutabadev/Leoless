@@ -119,26 +119,72 @@ input[type=reset] {
 .errorMsg{
 	margin-left: 10px;
 }
-table{
+#wrapper-trajets{
 	position: absolute;
-	border-radius: 10px;
-	background-color: #fffae6;
-	top: 20%;
-	left: 5%;
-	border-spacing: 0px;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-table{
-	position: absolute;
-	border-radius: 10px;
-	background-color: #fffae6;
-	top: 20%;
+	background-color: rgba(100,100,100,0.6);
+	color: #fff;
+	top: 12%;
 	left: 5%;
 	border-spacing: 0px;
 	padding-left: 15px;
 	padding-right: 15px;
 	font-size: 15px;
+	max-height: 80%;
+	overflow-y: auto;
+	width: 40%;
+}
+#wrapper-trajet {
+	position: absolute;
+	background-color: rgba(100,100,100,0.6);
+	color: #fff;
+	top: 12%;
+	left: 55%;
+	max-height: 80%;
+	overflow-y: auto;
+	width: 40%;
+	padding: 15px;
+	min-height: 500px;
+	box-sizing: border-box;
+}
+.hidden {
+	display: none !important;	
+}
+#wrapper-trajet iframe {
+	width: 100%;
+	height: 400px;
+	margin-top: 8px;
+}
+#wrapper-trajet button {
+	background-color: transparent;
+	font-size: 1em;
+	border: solid 1px white;
+	color: #fff;
+	transition: all .2s;
+	cursor: pointer;
+}
+#wrapper-trajet button:hover {
+	background-color: rgba(0,0,0,0.6);
+	border-color: transparent;
+}
+#wrapper-trajet button#save {
+	width: 80%;
+	margin: auto 10%;
+	margin-top: 15px;
+	text-align: center;
+	font-size: 1.5em;
+	padding: 1em;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 table td{
 	/* background-color: red; */
@@ -147,16 +193,15 @@ table td{
 	padding-bottom: 15px;
 	padding-top: 15px;
 }
+a {
+	color: #fff;
+}
 .trajetNom{
 	position: relative;
 	width: 50%;
 }
 table tr{
 	width: 100%;
-}
-table tr:hover{
-	background-color: #e6e6e6;
-	cursor: pointer;
 }
 table th{
 	padding: 15px 0 15px 0;
