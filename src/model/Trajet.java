@@ -123,6 +123,15 @@ public class Trajet implements Serializable {
 		factory.close();
 		return trajets;
 	}
+	public static Trajet getTrajet(int id) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Covoit");
+		EntityManager em = factory.createEntityManager();
+		Query qParam = em.createQuery("Select p FROM Trajet p where p.id  = :id");
+		Trajet trajet = (Trajet) qParam.setParameter("id", id).getSingleResult();
+		em.close();
+		factory.close();
+		return trajet;
+	}
 	
 	
 }
