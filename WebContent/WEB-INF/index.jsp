@@ -59,7 +59,7 @@
        	  });
           for (var i = 0; i < tabLatLong.length; i++) {
        	  	var marker = new google.maps.Marker({
-            	    position: {lat: tabLatLong[0], lng: tabLatLong[1])},
+            	    position: {lat: tabLatLong[i][0], lng: tabLatLong[i][1]},
             	    map: map,
             	    title: 'Eux',
             	    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|000000'
