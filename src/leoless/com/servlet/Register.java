@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,7 @@ public class Register extends HttpServlet {
 	public static final String FIELD_PRENOM = "prenom";
 	public static final String FIELD_DATE = "birth";
 	public static final String FIELD_FUMEUR = "smoke";
-	
+
 	private static final String PERSISTENCE_UNIT_NAME = "Covoit";
 
 	public static Map<String, String> form;
@@ -68,27 +69,41 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User newUser = null;
-	
 		boolean fumeur = Boolean.parseBoolean(request.getParameter(FIELD_FUMEUR));
-			
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
 		
-		User user = new User();
-		user.setEmail(request.getParameter(FIELD_EMAIL));
-		user.setDateNaissance(request.getParameter(FIELD_DATE));
-		user.setFumeur(fumeur);
-		user.setNom(request.getParameter(FIELD_NOM));
-		user.setPassword(request.getParameter(FIELD_PWD1));
-		user.setPrenom(request.getParameter(FIELD_PRENOM));
-		
-		em.persist(user);
-		
-		em.getTransaction().commit();
+		String mail = request.getParameter(FIELD_EMAIL);
+
+		Query findUser = em.createQuery("SELECT u FROM User u WHERE u.email = :mail");
+		findUser.setParameter("mail", mail);
+	
+		if (findUser.getResultList().size() == 0) {
+			em.getTransaction().begin();
+
+			User user = new User();
+			user.setEmail(request.getParameter(FIELD_EMAIL));
+			user.setDateNaissance(request.getParameter(FIELD_DATE));
+			user.setFumeur(fumeur);
+			user.setNom(request.getParameter(FIELD_NOM));
+			user.setPassword(request.getParameter(FIELD_PWD1));
+			user.setPrenom(request.getParameter(FIELD_PRENOM));
+
+			em.persist(user);
+
+			em.getTransaction().commit();
+		}
+
 		em.close();
 		emf.close();
+
+//		request.setAttribute("Exist", "Mail existant");
+//		request.getRequestDispatcher("/Acceuil?form=signup").forward(request, response);
+		
+		response.sendRedirect(response.encodeRedirectURL("/Leoless/Acceuil?signup=" + "signup"));
+
+
 	}
 
 	private String validateEmail(String email) {

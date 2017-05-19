@@ -19,7 +19,7 @@
 <section id="usersProche"> 
 	<p id="usersProcheText"><%= request.getAttribute("usersProcheText") %></p>
 	<script>
-	function getLocation() {
+ 	function getLocation() {
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(showPosition);
 	    } else {
@@ -27,8 +27,15 @@
 	    }
 	}
 	function showPosition(position) {
-		if(location.href.indexOf('longitude') == -1)
-	    location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
+		alert(location.href.indexOf('signup'));
+		if(location.href.indexOf('longitude') == -1) {
+			if (location.href.indexOf('signup') != -1) {
+				location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude;
+			}
+			else {
+	    		location.href = "Acceuil?longitude=" + position.coords.longitude + "&latitude=" + position.coords.latitude + "&signup=signup";
+			}
+		}
 	}
 	getLocation();
 	</script>
