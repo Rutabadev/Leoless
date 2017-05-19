@@ -52,26 +52,26 @@
 
 <form id='form_signup' method="POST" action="Register">
 			<h2>Inscription</h2>
-            <label>Nom</label>
-            <input type="text" name="nom" id="login" placeholder="Entrez un NOM" required>
-            <label>Pr�nom</label>
-            <input type="text" name="prenom" id="login" placeholder="Entrez un Pr�nom" required>
-            <label>Email</label>
+            <label>Nom</label><span id='errorNom' class='errorMsg'></span>
+            <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
+            <label>Pr�nom</label><span id='errorPrenom' class='errorMsg'></span>
+            <input type="text" id="prenom" name='prenom' placeholder="Entrez un Pr�nom" required>
+            <label>Email</label><span id='errorEmail' class='errorMsg'></span>
             <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
-            <label>Date de naissance</label>
+            <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
             <input type='date' id="birth" name='birth' placeholder='Indiquez votre date de naissance' required>
-            <label>Mot de passe</label>
-            <input type="password" name="pwd1" id="pwd1" placeholder="Entrez un Mot de passe" required>
-            <label>V�rifiez Mot de passe</label>
+            <label>Mot de passe</label><span id='errorPwd1' class='errorMsg'></span>
+            <input type="password" id="pwd1" placeholder="Entrez un Mot de passe" required>
+            <label>V�rifiez Mot de passe</label><span id='errorPwd2' class='errorMsg'></span>
             <input type="password" id="pwd2" placeholder="V�rifiez le Mot de passe" required>
-			<input type="radio" name="smoke" value="true">fumeur<br>
-  			<input type="radio" name="smoke" value="false">non fumeur<br>
+			<input type="radio" name="smoke" value="fumeur" required> fumeur
+  			<input type="radio" name="smoke" value="non_fumeur" required> non fumeur
             <input type="submit" id="submit_button" value="S'inscrire">
             <input type="reset" id="reset_button">
     </form>
 
         <img id="photofond" src="images/fondblack.jpg"/>
-        
+
 	<script src='accueil.js'></script>
 	<script src='annexe.js'></script>
 	

@@ -27,7 +27,7 @@ import model.User;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public static String VIEW_PAGES_URL = "/WEB-INF/login.html";
+	public static String VIEW_PAGES_URL = "/WEB-INF/index.jsp";
 	
 	public static final String FIELD_MAIL = "mail";
 	public static final String FIELD_PWD = "pwd";
