@@ -14,7 +14,7 @@
         <% if (request.getSession().getAttribute("user") != null) { %>
         	<label id="profil" class='titres'><%= request.getSession().getAttribute("user") %></label>
         <% } %>
-        <label id="trajet" class='titres'>TRAJET</label>
+        <a href="Trajets"><label id="trajet" class='titres'>TRAJET</label></a>
         <% if (request.getSession().getAttribute("user") != null) { %>
         	<a href="/Leoless/Logout"><label id="logout" class='titres'>DECONNEXION</label></a>
         	<a href="/Leoless/Delete"><label id="delete" class="titres">Supprimer mon compte</label></a>
