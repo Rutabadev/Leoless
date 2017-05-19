@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TU MONTES ?</title>
 <link rel="stylesheet" type="text/css" href="accueil.css">
 </head>
@@ -97,7 +97,7 @@
             <label>Nom</label><span id='errorNom' class='errorMsg'></span>
             <input type="text" id="nom" name='nom' placeholder="Entrez un NOM" required>
             <label>Prénom</label><span id='errorPrenom' class='errorMsg'></span>
-            <input type="text" id="prenom" name='prenom' placeholder="Entrez un Pr�nom" required>
+            <input type="text" id="prenom" name='prenom' placeholder="Entrez un Prénom" required>
             <label>Email</label><span id='errorEmail' class='errorMsg'></span>
             <input type="text" id="mail" name='mail' placeholder="Entrez un Email" required>
             <label>Date de naissance</label><span id='errorBirth' class='errorMsg'></span>
