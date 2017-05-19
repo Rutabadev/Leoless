@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.User;
 
@@ -81,34 +80,6 @@ public class Login extends HttpServlet {
 		} else {
 			response.sendRedirect("Login");;
 		}		
-	}
-	
-	private String validateEmail(String email) {
-		
-		if (email != null && email.trim().length() != 0) {
-			if (!email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" )) {
-				return "Veuillez saisir une adresse mail valide";
-			}
-		}
-		else {
-			return "L'adresse mail est obligatoire";
-		}
-		
-		return null;
-	}
-	
-	private String validatePwd(String pwd1, String pwd2) {
-		
-		if (pwd1 != null && pwd2 != null && pwd1.length() != 0 && pwd2.length() != 0) {
-			if (!pwd1.equals(pwd2)) {
-				return "Les mots de passe ne correspondent pas";
-			}
-		}
-		else {
-			return "Le mot de passe est obligatoire";
-		}
-		
-		return null;
 	}
 	
 }

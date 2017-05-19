@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+*<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,10 +10,11 @@
 <body>
 <section id="barreMenu">
         <img src="images/tumontes.png" id="logoHaut">
-        <label id="profil" class='titres'>PROFIL</label>
+        <label id="profil" class='titres'><%= request.getSession().getAttribute("user") %></label>
         <label id="signup" class='titres'>CREER UN COMPTE</label>
         <label id="trajet" class='titres'>TRAJET</label>
         <label id="signin" class='titres'>S'IDENTIFIER</label>
+        <label class='titres'></label>
     </section>
     
 <section id="usersProche"> 
@@ -38,16 +39,16 @@
 		}
 	}
 	getLocation();
-	</script>
+	</script> -->
 </section>
 
-<form id='form_signin' method="">
+<form id='form_signin' action="Login" method="post">
         <h2>Connexion</h2>
         <label>EMAIL</label><label class='errorMsg' id='errorLogin'></label>
-        <input type="text" id="login" placeholder="Entrez votre Email" required>
+        <input type="email" id="login" placeholder="Entrez votre Email" name="mail" required>
         <label>Mot de passe</label><label class='errorMsg' id='errorMdp1'></label>
-        <input type="password" id="pwd" placeholder="Entrez votre Mot de passe" required>
-        <input type="submit" id="submit_button" value="Se connecter">
+        <input type="password" id="pwd" placeholder="Entrez votre Mot de passe"  name="pwd" required>
+        <input type="submit" id="submit_button" value="Se connecter">        
 </form>
 
 <form id='form_signup' method="POST" action="Register">
