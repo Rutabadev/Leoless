@@ -10,25 +10,53 @@
 <body>
 
 <section id="barreMenu">
-        <img src="images/tumontes.png" id="logoHaut">
+        <a href='/Leoless/Acceuil'><img src="images/tumontes.png" id="logoHaut"></a>
         <label id="profil" class='titres'>PROFIL</label>
         <label id="signup" class='titres'>CREER UN COMPTE</label>
         <label id="trajet" class='titres'>TRAJET</label>
         <label id="signin" class='titres'>S'IDENTIFIER</label>
     </section>
     
-<c:if test="${not empty objects}">
-    <table>
-        <c:forEach var="o" items="${objects}">
+    <img id="photofond" src="images/fondblack.jpg"/>
+    
+<div id='tabTrajet'>
+	<c:if test="${not empty objects}">
+	    <table>
+            <tr> 
+                <th>Nom</th>
+                <th>Nombre de places</th>
+                <th id='option'></th>
+        </tr>
+        <c:if test = "${trajets}">
+        <c:forEach var="t" items="${trajets}">
             <tr>
-                <td>${o.id}</td>
-                <td>${o.name}</td>
-                <td>${o.descriptio}</td>   
+                <td class='trajetNom'>Serge ${t.getNom()}</td>
+                <td>3 ${t.getNbPlaces()}</td>
+                <td><a href="Trajet?id="+${t.getId()}>Consulter/Modifier</a></td>
+            </tr>
+            <tr>
+                <td class='trajetNom'>Raymond ${t.getNom()}</td>
+                <td>6 ${t.getNbPlaces()}</td>
+                <td><a href="Trajet?id="+${t.getId()}>Consulter/Modifier</a></td>
+            </tr>
+            <tr>
+                <td class='trajetNom'>Françis ${t.getNom()}</td>
+                <td>1 ${t.getNbPlaces()}</td>
+                <td><a href="Trajet?id="+${t.getId()}>Consulter/Modifier</a></td>
             </tr>
         </c:forEach>
-    </table>
-</c:if>
-
+        </c:if>
+        </table>
+	</c:if>
+</div>
+<script>
+document.getElementById('logoHaut').addEventListener('mouseenter', function(){
+	document.getElementById('logoHaut').src = 'images/tumonteshover.png';
+});
+document.getElementById('logoHaut').addEventListener('mouseleave', function(){
+	document.getElementById('logoHaut').src = 'images/tumontes.png';
+});
+</script>
 
 </body>
 </html>
