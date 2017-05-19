@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -103,4 +105,21 @@ public class Trajet implements Serializable {
 		this.nom = nom;
 	}
 
+	public static List<Trajet> getTrajetByUser() {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Covoit");
+		EntityManager em = factory.createEntityManager();
+		Query qParam = em.createQuery("Select p FROM ParamTrajet p where p.idUser = 1");
+		List<ParamTrajet> params = (List<ParamTrajet>)qParam.getResultList();
+		List<Trajet> trajets = new ArrayList<Trajet>();
+		for (ParamTrajet p : params) {
+			Query qTrajet= em.createQuery("SELECT t FROM Trajet t WHERE t.idParam = :id");
+			qTrajet.setParameter("id", p.getId());
+			trajets.add((Trajet)qTrajet.getSingleResult());
+		}
+		em.close();
+		factory.close();
+		return trajets;
+	}
+	
+	
 }

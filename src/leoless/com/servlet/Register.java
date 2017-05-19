@@ -23,7 +23,7 @@ import model.User;
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public static String VIEW_PAGES_URL = "/WEB-INF/register.html";
+	public static String VIEW_PAGES_URL = "/WEB-INF/index.jsp";
 
 	public static final String FIELD_EMAIL = "mail";
 	public static final String FIELD_PWD1 = "pwd1";
